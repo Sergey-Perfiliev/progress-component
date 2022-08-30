@@ -1,4 +1,4 @@
-/* styles */
+/* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
 
 *,
@@ -14,19 +14,19 @@ body {
 	font-family: 'Noto Sans', sans-serif;
 }
 
-#app {
+#progress {
 	height: 100vh;
 	padding: 16px;
 	display: flex;
 	align-items: center;
 }
 
-#app>div {
+#progress>div {
 	height: 100%;
 	flex: 1;
 }
 
-.component-progress {
+.progress-block {
 	width: 100%;
 	position: relative;
 	display: flex;
@@ -34,7 +34,7 @@ body {
 	justify-content: center;
 }
 
-.component-name {
+.progress-title {
 	top: 0;
 	left: 0;
 	position: absolute;
@@ -42,19 +42,16 @@ body {
 	font-weight: 700;
 }
 
-.circle-progress {
+.progress-bar {
 	position: relative;
 	height: 120px;
 	width: 120px;
 	border-radius: 50%;
 	display: grid;
 	place-items: center;
-
-	background: conic-gradient(#005BFF calc(75*3.6deg),
-			#EFF3F6 calc(75*3.6deg));
 }
 
-.circle-progress:before {
+.progress-bar:before {
 	content: "";
 	position: absolute;
 	height: 84%;
@@ -65,7 +62,7 @@ body {
 
 /* ===== */
 
-.component-controllers {
+.progress-controllers {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -158,11 +155,11 @@ body {
 /* === media === */
 
 @media (max-width: 425px) and (orientation: portrait) {
-	#app {
+	#progress {
 		flex-direction: column;
 	}
 
-	.component-controllers {
+	.progress-controllers {
 		align-items: baseline;
 	}
 }

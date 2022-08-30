@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,25 +7,24 @@
 	<link rel="stylesheet" href="styles.css" />
 	<title>Progress Component</title>
 </head>
-
 <body>
 	<!-- app -->
-	<div id="app">
-		<div class="component-progress">
-			<h1 class="component-name">Progress</h1>
-			<div class="circle-progress"></div>
+	<div id="progress">
+		<div class="progress-block">
+			<h1 class="progress-title">Progress</h1>
+			<div class="progress-bar"></div>
 		</div>
 
-		<div class="component-controllers">
+		<div class="progress-controllers">
 			<div class="input-wrapper">
-				<input type="text" class="value-input">
+				<input type="text" class="value-input" id="progress-value" value="10" min="0" max="100">
 				<div>
 					<span>Value</span>
 				</div>
 			</div>
 			<div class="input-wrapper">
 				<label class="switch">
-					<input type="checkbox" class="switch-input">
+					<input type="checkbox" class="switch-input" id="progress-animated">
 					<span class="slider round"></span>
 				</label>
 				<div>
@@ -35,11 +33,11 @@
 			</div>
 			<div class="input-wrapper">
 				<label class="switch">
-					<input type="checkbox" class="switch-input">
+					<input type="checkbox" class="switch-input" id="progress-hidden">
 					<span class="slider round"></span>
 				</label>
 				<div>
-					<span>Hidden</span>
+					<span>Hide</span>
 				</div>
 			</div>
 		</div>
@@ -48,5 +46,4 @@
 	<!-- script -->
 	<script src="index.js"></script>
 </body>
-
 </html>
