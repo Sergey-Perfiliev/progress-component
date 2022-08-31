@@ -8,13 +8,12 @@ const DEFAULT_CONTROLLERS = {
 class Progress {
 	constructor(options) {
 		this.progressBar = document.querySelector(options.progressBar)
-		this.setControllers(options.controllers || DEFAULT_CONTROLLERS)
-		this.setProgress(this.progress)
-		this.intervalSpeed = options.intervalSpeed || DEFAULT_SPEED
 
-		this.cValue.oninput = () => this.setProgress()
-		this.cAnimated.onclick = () => this.toggleAnimation()
-		this.cHidden.onclick = () => this.toggleHidden()
+		this.setControllers(options.controllers || DEFAULT_CONTROLLERS)
+		this.setProgressValue(this.progress)
+		this.initDOMListeners()
+
+		this.intervalSpeed = options.intervalSpeed || DEFAULT_SPEED
 	}
 
 	setControllers(controllers) {
@@ -22,6 +21,12 @@ class Progress {
 		this.cValue = document.querySelector(controllers.value)
 		this.cAnimated = document.querySelector(controllers.animated)
 		this.cHidden = document.querySelector(controllers.hidden)
+	}
+
+	initDOMListeners() {
+		this.cValue.oninput = () => this.setProgressValue()
+		this.cAnimated.onclick = () => this.toggleAnimation()
+		this.cHidden.onclick = () => this.toggleHidden()
 	}
 
 	// progress value
@@ -33,7 +38,7 @@ class Progress {
 		this.cValue.value = value || 0
 	}
 
-	setProgress() {
+	setProgressValue() {
 		// handle out of range progressValue
 		this.progress = parseInt(this.cValue.value, 10)
 		if (this.progress < 0) this.progress = 0
@@ -45,7 +50,6 @@ class Progress {
 			#EFF3F6 ${this.progress * 3.6}deg
 		)`;
 	}
-
 
 	// progress animation
 	startAnimation() {
@@ -60,7 +64,7 @@ class Progress {
 
 	stopAnimation() {
 		clearInterval(this._animationInterval)
-		this.setProgress()
+		this.setProgressValue()
 	}
 
 	toggleAnimation() {
@@ -92,5 +96,4 @@ const ProgressBar = new Progress({
 		animated: '#progress-animated',
 		hidden: '#progress-hidden'
 	},
-	intervalSpeed: 10
 })
