@@ -1,18 +1,24 @@
+import { Component } from './Component.js'
+
 const DEFAULT_SPEED = 8
-const DEFAULT_CONTROLLERS = {
+const DEFAULT_PROGRESS_BAR_SELECTOR = '.progress-bar'
+const DEFAULT_CONTROLLERS_SELECTORS = {
 	value: '#progress-value',
 	animated: '#progress-animated',
 	hidden: '#progress-hidden'
 }
+const DEFAULT_PROGRESS_BAR_SIZE = 120
 
-class Progress {
+class Progress extends Component {
 	constructor(options) {
-		this.progressBar = document.querySelector(options.progressBar)
+		super(options.componentSelector || DEFAULT_PROGRESS_BAR_SELECTOR)
 
-		this.setControllers(options.controllers || DEFAULT_CONTROLLERS)
+		// init
+		this.setControllers(options.controllers || DEFAULT_CONTROLLERS_SELECTORS)
 		this.setProgressValue(this.progress)
 		this.initDOMListeners()
 
+		this.size = options.size || DEFAULT_PROGRESS_BAR_SIZE
 		this.intervalSpeed = options.intervalSpeed || DEFAULT_SPEED
 	}
 
@@ -44,8 +50,8 @@ class Progress {
 		if (this.progress < 0) this.progress = 0
 		else if (this.progress > 100) this.progress = 100
 
-		this.progressBar.style.transform = `rotate(360deg)`
-		this.progressBar.style.background = `conic-gradient(
+		this.component.style.transform = `rotate(360deg)`
+		this.component.style.background = `conic-gradient(
 			#005BFF ${this.progress * 3.6}deg,
 			#EFF3F6 ${this.progress * 3.6}deg
 		)`;
@@ -57,7 +63,7 @@ class Progress {
 
 		this._animationInterval = setInterval(() => {
 			if (progressAnimationValue > 360) progressAnimationValue %= 360
-			this.progressBar.style.transform = `rotate(${progressAnimationValue}deg)`;
+			this.component.style.transform = `rotate(${progressAnimationValue}deg)`;
 			++progressAnimationValue
 		}, this.intervalSpeed);
 	}
@@ -72,17 +78,6 @@ class Progress {
 		else this.stopAnimation()
 	}
 
-	// progress hidden
-	show() {
-		this.progressBar.style.visibility = 'visible'
-		this.progressBar.style.opacity = '1'
-	}
-
-	hide() {
-		this.progressBar.style.visibility = 'hidden'
-		this.progressBar.style.opacity = '0'
-	}
-
 	toggleHidden() {
 		if (this.cHidden.checked) this.hide()
 		else this.show()
@@ -90,7 +85,7 @@ class Progress {
 }
 
 const ProgressBar = new Progress({
-	progressBar: '.progress-bar',
+	componentSelector: '.progress-bar',
 	controllers: {
 		value: '#progress-value',
 		animated: '#progress-animated',
