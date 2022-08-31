@@ -1,8 +1,20 @@
+const DEFAULT_SPEED = 8
+const DEFAULT_CONTROLLERS = {
+	value: '#progress-value',
+	animated: '#progress-animated',
+	hidden: '#progress-hidden'
+}
+
 class Progress {
 	constructor(options) {
 		this.progressBar = document.querySelector(options.progressBar)
-		this.setControllers(options.controllers)
+		this.setControllers(options.controllers || DEFAULT_CONTROLLERS)
 		this.setProgress(this.progress)
+		this.intervalSpeed = options.intervalSpeed || DEFAULT_SPEED
+
+		this.cValue.oninput = () => this.setProgress()
+		this.cAnimated.onclick = () => this.toggleAnimation()
+		this.cHidden.onclick = () => this.toggleHidden()
 	}
 
 	setControllers(controllers) {
@@ -23,7 +35,7 @@ class Progress {
 
 	setProgress() {
 		// handle out of range progressValue
-		this.progress = parseInt(this.cValue.value)
+		this.progress = parseInt(this.cValue.value, 10)
 		if (this.progress < 0) this.progress = 0
 		else if (this.progress > 100) this.progress = 100
 
@@ -38,13 +50,12 @@ class Progress {
 	// progress animation
 	startAnimation() {
 		let progressAnimationValue = 0
-		let speed = 8
 
 		this._animationInterval = setInterval(() => {
 			if (progressAnimationValue > 360) progressAnimationValue %= 360
 			this.progressBar.style.transform = `rotate(${progressAnimationValue}deg)`;
 			++progressAnimationValue
-		}, speed);
+		}, this.intervalSpeed);
 	}
 
 	stopAnimation() {
@@ -58,9 +69,15 @@ class Progress {
 	}
 
 	// progress hidden
-	show() { this.progressBar.style.visibility = 'visible' }
+	show() {
+		this.progressBar.style.visibility = 'visible'
+		this.progressBar.style.opacity = '1'
+	}
 
-	hide() { this.progressBar.style.visibility = 'hidden' }
+	hide() {
+		this.progressBar.style.visibility = 'hidden'
+		this.progressBar.style.opacity = '0'
+	}
 
 	toggleHidden() {
 		if (this.cHidden.checked) this.hide()
@@ -74,9 +91,6 @@ const ProgressBar = new Progress({
 		value: '#progress-value',
 		animated: '#progress-animated',
 		hidden: '#progress-hidden'
-	}
+	},
+	intervalSpeed: 10
 })
-
-ProgressBar.cValue.oninput = () => ProgressBar.setProgress()
-ProgressBar.cAnimated.onclick = () => ProgressBar.toggleAnimation()
-ProgressBar.cHidden.onclick = () => ProgressBar.toggleHidden()
