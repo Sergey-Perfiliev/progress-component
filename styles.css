@@ -87,6 +87,10 @@ body {
 	text-align: left;
 }
 
+.switch-input:focus + .slider {
+  box-shadow: 0 0 2px #005BFF;
+}
+
 .value-input {
 	text-align: center;
 	width: 52px;
@@ -97,6 +101,14 @@ body {
 
 	font-family: inherit;
 	font-weight: bold;
+
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.value-input:focus {
+	border-color: #E0E6EF;
+	box-shadow: 0 0 2px #005BFF;
 }
 
 /* === /input === */

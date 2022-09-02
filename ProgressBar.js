@@ -30,9 +30,9 @@ class Progress extends Component {
 	}
 
 	initDOMListeners() {
-		this.cValue.oninput = () => this.setProgressValue()
-		this.cAnimated.onclick = () => this.toggleAnimation()
-		this.cHidden.onclick = () => this.toggleHidden()
+		this.cValue.addEventListener('input', () => this.setProgressValue())
+		this.cAnimated.addEventListener('click', () => this.toggleAnimation())
+		this.cHidden.addEventListener('click', () => this.toggleHidden())
 	}
 
 	// progress value
