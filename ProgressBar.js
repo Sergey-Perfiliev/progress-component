@@ -8,6 +8,7 @@ const DEFAULT_CONTROLLERS_SELECTORS = {
 	hidden: '#progress-hidden'
 }
 const DEFAULT_PROGRESS_BAR_SIZE = 120
+const ANIMATION_CLASS = 'progress-bar-animation'
 
 class Progress extends Component {
 	constructor(options) {
@@ -59,17 +60,11 @@ class Progress extends Component {
 
 	// progress animation
 	startAnimation() {
-		let progressAnimationValue = 0
-
-		this._animationInterval = setInterval(() => {
-			if (progressAnimationValue > 360) progressAnimationValue %= 360
-			this.component.style.transform = `rotate(${progressAnimationValue}deg)`;
-			++progressAnimationValue
-		}, this.intervalSpeed);
+		this.component.classList.add(ANIMATION_CLASS)
 	}
 
 	stopAnimation() {
-		clearInterval(this._animationInterval)
+		this.component.classList.remove(ANIMATION_CLASS)
 		this.setProgressValue()
 	}
 

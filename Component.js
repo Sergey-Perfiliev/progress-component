@@ -13,8 +13,8 @@ export class Component {
 
 	set size(size) {
 		// size format: {number} || {number}px
-		this.component.style.width = `${parseFloat(size)}px`
-		this.component.style.height = `${parseFloat(size)}px`
+		this.component.style.width = `calc(${parseFloat(size)}px + 5vw)`
+		this.component.style.height = `calc(${parseFloat(size)}px + 5vw)`
 	}
 
 	// progress hidden

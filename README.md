@@ -31,7 +31,7 @@ State:
 >
 > - size (By default: `120`)
 >
-> - intervalSpeed (By default: `8`)
+> - intervalSpeed (By default: `8`) **CURRENTLY UNAVAILABLE**
 
 ### Size
 
@@ -40,6 +40,8 @@ State:
 > `ProgressBar.size = 150`
 >
 > Can use `120px` format instead
+>
+> ADD ADDITIONAL SIZE 5vw BY DEFAULT
 
 ### Animation
 

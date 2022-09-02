@@ -45,8 +45,8 @@ body {
 .progress-bar {
 	position: relative;
 	flex-shrink: 0;
-	height: 120px;
-	width: 120px;
+	height: calc(120px + 5vw);
+	width: calc(120px + 5vw);
 	border-radius: 50%;
 	display: grid;
 	place-items: center;
@@ -63,6 +63,25 @@ body {
 	background-color: #ffffff;
 	border-radius: 50%;
 }
+
+/* === animation === */
+
+.progress-bar.progress-bar-animation {
+	/* animation name, duration, timing-function, iteration-count, direction, fill-mode */
+	animation: loopRotation 2s linear infinite normal forwards;
+}
+
+@keyframes loopRotation {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* === /animation === */
 
 /* ===== */
 
@@ -87,8 +106,8 @@ body {
 	text-align: left;
 }
 
-.switch-input:focus + .slider {
-  box-shadow: 0 0 2px #005BFF;
+.switch-input:focus+.slider {
+	box-shadow: 0 0 2px #005BFF;
 }
 
 .value-input {
