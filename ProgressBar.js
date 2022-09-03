@@ -34,16 +34,16 @@ class Progress extends Component {
 	}
 
 	initDOMListeners() {
-		this.cValue.addEventListener('input', () => this.setProgress(this.cValue.value))
+		this.cValue.addEventListener('input', () => {
+			this.cValue.value = this._progress = this._validateProgress(this.cValue.value)
+			this.setProgress()
+		})
 		this.cAnimated.addEventListener('click', () => this.toggleAnimation())
 		this.cHidden.addEventListener('click', () => this.toggleHidden())
 	}
 
 	setProgress(value = this._progress) {
-		this._progress = parseInt(value, 10)
-		if (this._progress < 0) this._progress = 0
-		else if (this._progress > 100) this._progress = 100
-		this.cValue.value = this._progress
+		this.cValue.value = this._progress = this._validateProgress(value)
 
 		this.component.style.transform = `rotate(360deg)`
 		this.component.style.background = `conic-gradient(
@@ -70,8 +70,15 @@ class Progress extends Component {
 	}
 
 	toggleHidden() {
-		if (this.hidden) this.show()
+		if (this._hidden) this.show()
 		else this.hide()
+	}
+
+	_validateProgress(value) {
+		let validValue = parseInt(value, 10) || 0
+		if (validValue < 0) validValue = 0
+		else if (validValue > 100) validValue = 100
+		return validValue
 	}
 }
 

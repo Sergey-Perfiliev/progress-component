@@ -43,6 +43,12 @@ State:
 >
 > ADD ADDITIONAL SIZE 5vw BY DEFAULT
 
+### Progress
+
+> **To set progress**
+>
+> `ProgressBar.setProgress(value: number)`
+ 
 ### Animation
 
 > **To start and stop Animation**
