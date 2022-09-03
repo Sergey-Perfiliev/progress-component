@@ -16,8 +16,11 @@ class Progress extends Component {
 
 		// init
 		this.setControllers(options.controllers || DEFAULT_CONTROLLERS_SELECTORS)
-		this.setProgressValue(this.progress)
 		this.initDOMListeners()
+
+		this._animated = false
+		this._progress = this.cValue.value || 0
+		this.setProgress(this._progress)
 
 		this.size = options.size || DEFAULT_PROGRESS_BAR_SIZE
 		this.intervalSpeed = options.intervalSpeed || DEFAULT_SPEED
@@ -31,51 +34,44 @@ class Progress extends Component {
 	}
 
 	initDOMListeners() {
-		this.cValue.addEventListener('input', () => this.setProgressValue())
+		this.cValue.addEventListener('input', () => this.setProgress(this.cValue.value))
 		this.cAnimated.addEventListener('click', () => this.toggleAnimation())
 		this.cHidden.addEventListener('click', () => this.toggleHidden())
 	}
 
-	// progress value
-	get progress() {
-		return this.cValue.value
-	}
-
-	set progress(value) {
-		this.cValue.value = value || 0
-	}
-
-	setProgressValue() {
-		// handle out of range progressValue
-		this.progress = parseInt(this.cValue.value, 10)
-		if (this.progress < 0) this.progress = 0
-		else if (this.progress > 100) this.progress = 100
+	setProgress(value = this._progress) {
+		this._progress = parseInt(value, 10)
+		if (this._progress < 0) this._progress = 0
+		else if (this._progress > 100) this._progress = 100
+		this.cValue.value = this._progress
 
 		this.component.style.transform = `rotate(360deg)`
 		this.component.style.background = `conic-gradient(
-			#005BFF ${this.progress * 3.6}deg,
-			#EFF3F6 ${this.progress * 3.6}deg
+			#005BFF ${this._progress * 3.6}deg,
+			#EFF3F6 ${this._progress * 3.6}deg
 		)`;
 	}
 
 	// progress animation
 	startAnimation() {
+		this._animated = true
 		this.component.classList.add(ANIMATION_CLASS)
 	}
 
 	stopAnimation() {
+		this._animated = false
 		this.component.classList.remove(ANIMATION_CLASS)
-		this.setProgressValue()
+		this.setProgress()
 	}
 
 	toggleAnimation() {
-		if (this.cAnimated.checked) this.startAnimation()
-		else this.stopAnimation()
+		if (this._animated) this.stopAnimation()
+		else this.startAnimation()
 	}
 
 	toggleHidden() {
-		if (this.cHidden.checked) this.hide()
-		else this.show()
+		if (this.hidden) this.show()
+		else this.hide()
 	}
 }
 

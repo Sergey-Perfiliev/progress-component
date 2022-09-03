@@ -1,6 +1,7 @@
 export class Component {
 	constructor(selector) {
 		this.component = document.querySelector(selector)
+		this.hidden = false
 	}
 
 	// size
@@ -19,11 +20,13 @@ export class Component {
 
 	// progress hidden
 	show() {
+		this.hidden = false
 		this.component.style.visibility = 'visible'
 		this.component.style.opacity = '1'
 	}
 
 	hide() {
+		this.hidden = true
 		this.component.style.visibility = 'hidden'
 		this.component.style.opacity = '0'
 	}
